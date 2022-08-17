@@ -14,11 +14,13 @@ import bleach
 import os
 from dotenv import load_dotenv
 
-load_dotenv("C:\\Users\\Tair\\Мой диск\\courses\\env-variables.env")
 app = Flask(__name__)
+
+load_dotenv("C:\\Users\\Tair\\Мой диск\\courses\\env-variables.env")
 app.secret_key = os.getenv("FLASK_SECRET")
 my_email = os.getenv("EMAIL")
 password = os.getenv("PASSWORD")
+
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
