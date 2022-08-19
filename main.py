@@ -12,13 +12,12 @@ from datetime import date
 import smtplib
 import bleach
 import os
-from dotenv import load_dotenv
 
 app = Flask(__name__)
 
-app.secret_key = os.getenv("FLASK_SECRET")
-my_email = os.getenv("EMAIL")
-password = os.getenv("PASSWORD")
+app.secret_key = os.environ.get('FLASK_SECRET', None)
+EMAIL = os.environ.get('EMAIL', None)
+PASSWORD = os.environ.get('PASSWORD', None)
 
 ckeditor = CKEditor(app)
 Bootstrap(app)
@@ -193,7 +192,7 @@ def contact():
     if form.validate_on_submit():
         with smtplib.SMTP("smtp.gmail.com", 587) as connection:
             connection.starttls()
-            connection.login(user=my_email, password=password)
+            connection.login(EMAIL, PASSWORD)
             data = {
                 "name": form.name.data,
                 "email": form.email.data,
@@ -202,8 +201,8 @@ def contact():
             }
             message = f"Subject:New Message\n\nName: {data['name']}\nEmail: {data['email']}\nPhone: {data['phone']}\nMessage: «{data['message']}»"
             connection.sendmail(
-                from_addr=my_email,
-                to_addrs=my_email,
+                from_addr=EMAIL,
+                to_addrs=EMAIL,
                 msg=message.encode('utf-8')
             )
         return render_template("contact.html", msg_sent=True, form=form)
