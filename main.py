@@ -1,19 +1,22 @@
-from flask import Flask, render_template, redirect, url_for, flash, abort
+import os
+from datetime import date
+from functools import wraps
+
+import bleach
+from flask import Flask, abort, flash, redirect, render_template, url_for
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, LoginManager, login_user, logout_user, current_user
 from flask_gravatar import Gravatar
-from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm, ContactForm
-from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy.orm import relationship
-from functools import wraps
-from datetime import date
-import smtplib
-import bleach
-import os
+from flask_login import (LoginManager, UserMixin, current_user, login_user,
+                         logout_user)
+from flask_sqlalchemy import SQLAlchemy
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+from sqlalchemy.orm import relationship
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from forms import (CommentForm, ContactForm, CreatePostForm, LoginForm,
+                   RegisterForm)
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET', None)
@@ -192,7 +195,7 @@ def contact():
             from_email=os.getenv('EMAIL'),
             to_emails=os.getenv('EMAIL'),
             subject='New Message',
-            html_content=f'Name: {form.name.data}\nEmail: {form.email.data}\nPhone: {form.phone_number.data}\nMessage: «{form.message.data}»'
+            html_content=f'Name: {form.name.data} | Email: {form.email.data} | Phone: {form.phone_number.data} | Message: «{form.message.data}»'
             )
         try:
             sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
