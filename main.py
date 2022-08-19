@@ -12,13 +12,11 @@ from datetime import date
 import smtplib
 import bleach
 import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 app = Flask(__name__)
-
-app.secret_key = os.environ.get('FLASK_SECRET', None)
-EMAIL = os.environ.get('EMAIL', None)
-PASSWORD = os.environ.get('PASSWORD', None)
-
+app.secret_key = os.getenv('FLASK_SECRET', None)
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
@@ -190,21 +188,21 @@ def show_post(post_id):
 def contact():
     form = ContactForm()
     if form.validate_on_submit():
-        with smtplib.SMTP("smtp.gmail.com", 587) as connection:
-            connection.starttls()
-            connection.login(EMAIL, PASSWORD)
-            data = {
-                "name": form.name.data,
-                "email": form.email.data,
-                "phone": form.phone_number.data,
-                "message": form.message.data
-            }
-            message = f"Subject:New Message\n\nName: {data['name']}\nEmail: {data['email']}\nPhone: {data['phone']}\nMessage: «{data['message']}»"
-            connection.sendmail(
-                from_addr=EMAIL,
-                to_addrs=EMAIL,
-                msg=message.encode('utf-8')
+        message = Mail(
+            from_email=os.getenv('EMAIL'),
+            to_emails=os.getenv('EMAIL'),
+            subject='New Message',
+            html_content=f'Name: {form.name.data}\nEmail: {form.email.data}\nPhone: {form.phone_number.data}\nMessage: «{form.message.data}»'
             )
+        try:
+            sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
+            response = sg.send(message)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+        except Exception as e:
+            print(e.message)
+
         return render_template("contact.html", msg_sent=True, form=form)
     return render_template("contact.html", msg_sent=False, form=form)
 
