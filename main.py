@@ -24,7 +24,8 @@ ckeditor = CKEditor(app)
 Bootstrap(app)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "sqlite:///blog.db").replace('postgres://', 'postgresql://')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+    "DATABASE_URL", "sqlite:///blog.db").replace('postgres://', 'postgresql://')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -111,6 +112,8 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
     comment_author = relationship("User", back_populates="comments")
     parent_post = relationship("BlogPost", back_populates="comments")
+
+
 db.create_all()
 
 
@@ -125,7 +128,8 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         if User.query.filter_by(email=form.email.data).first():
-            flash("Вы уже зарегистрировались с этим адресом электронной почты, вместо этого войдите в систему.")
+            flash(
+                "Вы уже зарегистрировались с этим адресом электронной почты, вместо этого войдите в систему.")
             return redirect(url_for('login'))
         hash_and_salted_password = generate_password_hash(
             form.password.data,
@@ -196,7 +200,7 @@ def contact():
             to_emails=os.getenv('EMAIL'),
             subject='New Message',
             html_content=f'Name: {form.name.data} | Email: {form.email.data} | Phone: {form.phone_number.data} | Message: «{form.message.data}»'
-            )
+        )
         try:
             sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
             response = sg.send(message)
