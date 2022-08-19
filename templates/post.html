@@ -43,7 +43,7 @@
             <li>
               <div class="commenterImage">
                 {% if comment.author_id == 1: %}
-                <img src="{{ url_for('static', filename='img/about-bg.jpg')}}">
+                <img src="{{ url_for('static', filename='img/pfp.png')}}">
                 {% else: %}
                 <img src="{{comment.comment_author.email|gravatar}}">
                 {% endif %}
