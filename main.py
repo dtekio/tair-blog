@@ -125,7 +125,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         if User.query.filter_by(email=form.email.data).first():
-            flash("You've already signed up with that email, log in instead.")
+            flash("Вы уже зарегистрировались с этим адресом электронной почты, вместо этого войдите в систему.")
             return redirect(url_for('login'))
         hash_and_salted_password = generate_password_hash(
             form.password.data,
@@ -155,11 +155,11 @@ def login():
         #Find user by email entered.
         user = User.query.filter_by(email=email).first()
         if not user:
-            flash('That email does not exist, please try again.')
+            flash('Такой адрес электронной почты не существует, попробуйте еще раз.')
             return redirect(url_for('login'))
         #Check stored password hash against entered password hashed.
         elif not check_password_hash(user.password, password):
-            flash('Password incorrect, please try again.')
+            flash('Неверный пароль, попробуйте еще раз.')
             return redirect(url_for('login'))
         else:
             login_user(user)
@@ -174,7 +174,7 @@ def show_post(post_id):
 
     if form.validate_on_submit():
         if not current_user.is_authenticated:
-            flash('You need to login or register to comment.')
+            flash('Вам нужно войти или зарегистрироваться чтобы оставить комментарий.')
             return redirect(url_for('login'))
         new_comment = Comment(
             text=strip_invalid_html(form.comment.data),

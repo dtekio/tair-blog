@@ -7,34 +7,34 @@ from flask_ckeditor import CKEditorField
 
 
 class CreatePostForm(FlaskForm):
-    title = StringField("Blog Post Title", validators=[DataRequired()])
-    subtitle = StringField("Subtitle", validators=[DataRequired()])
-    img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
-    body = CKEditorField("Blog Content", validators=[DataRequired()])
-    submit = SubmitField("Submit Post")
+    title = StringField("Название", validators=[DataRequired()])
+    subtitle = StringField("Подзаголовок", validators=[DataRequired()])
+    img_url = StringField("Изображение (URL)", validators=[DataRequired(), URL()])
+    body = CKEditorField("Содержание", validators=[DataRequired()])
+    submit = SubmitField("Разместить")
 
 
 class RegisterForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    name = StringField("Name", validators=[DataRequired()])
-    submit = SubmitField("Register")
+    email = StringField("Эл. адрес", validators=[DataRequired(), Email()])
+    password = PasswordField("Пароль", validators=[DataRequired()])
+    name = StringField("Имя", validators=[DataRequired()])
+    submit = SubmitField("Зарегистрироваться")
 
 
 class LoginForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    submit = SubmitField("Login")
+    email = StringField("Эл. адрес", validators=[DataRequired(), Email()])
+    password = PasswordField("Пароль", validators=[DataRequired()])
+    submit = SubmitField("Войти")
 
 
 class CommentForm(FlaskForm):
-    comment = CKEditorField('Comment', validators=[DataRequired()])
-    submit = SubmitField("Submit Comment")
+    comment = CKEditorField('Комментарий', validators=[DataRequired()])
+    submit = SubmitField("Разместить")
 
 
 class ContactForm(FlaskForm):
-    name = StringField("Name", validators=[DataRequired()])
-    email = StringField("Email", validators=[DataRequired(), Email()])
-    phone_number = StringField("Phone number", validators=[DataRequired()])
-    message = StringField("Message", validators=[DataRequired()])
-    submit = SubmitField("Send")
+    name = StringField("Имя", validators=[DataRequired()])
+    email = StringField("Эл. адрес", validators=[DataRequired(), Email()])
+    phone_number = StringField("Телефонный номер", validators=[DataRequired()])
+    message = StringField("Сообщение", validators=[DataRequired()])
+    submit = SubmitField("Отправить")

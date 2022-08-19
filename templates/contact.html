@@ -7,8 +7,8 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="page-heading">
-          <h1>Contact Me</h1>
-          <span class="subheading">Have questions? I have answers.</span>
+          <h1>Свяжитесь со мной</h1>
+          <span class="subheading">Есть вопросы? У меня есть ответы.</span>
         </div>
       </div>
     </div>
@@ -19,8 +19,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
-      <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as
-        possible!</p>
+      <p>Хотите связаться? Заполните форму снизу, чтобы отправить мне сообщение, и я постараюсь ответить как можно скорее!</p>
       {{ ckeditor.load() }}
       {{ ckeditor.config(name='body') }}
       {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
