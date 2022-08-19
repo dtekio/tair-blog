@@ -42,7 +42,11 @@
             {% for comment in post.comments %}
             <li>
               <div class="commenterImage">
+                {% if current_user.id == 1: %}
+                <img src="{{ url_for('static', filename='img/about-bg.jpg')}}">
+                {% else: %}
                 <img src="{{comment.comment_author.email|gravatar}}">
+                {% endif %}
               </div>
               <div class="commentText">
                 <p>{{comment.text|safe}}</p>
