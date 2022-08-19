@@ -8,11 +8,11 @@
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="page-heading">
           {% if msg_sent: %}
-          <h1>Ваше сообщение успешно отправлено.</h1>
+          <h1>Your message has been successfully sent.</h1>
           {% else: %}
-          <h1>Свяжитесь со мной</h1>
+          <h1>Contact me.</h1>
           {% endif %}
-          <span class="subheading">Есть вопросы? У меня есть ответы.</span>
+          <span class="subheading">Have questions? I have the answers.</span>
         </div>
       </div>
     </div>
@@ -23,7 +23,8 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
-      <p>Хотите связаться? Заполните форму снизу, чтобы отправить мне сообщение, и я постараюсь ответить как можно скорее!</p>
+      <p>Do you want to get in touch? Fill out the form below to send me a message and I will try to respond as soon as
+        possible!</p>
       {{ ckeditor.load() }}
       {{ ckeditor.config(name='body') }}
       {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}

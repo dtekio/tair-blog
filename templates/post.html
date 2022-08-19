@@ -9,9 +9,9 @@
         <div class="post-heading">
           <h1>{{post.title}}</h1>
           <h2 class="subheading">{{post.subtitle}}</h2>
-          <span class="meta">Пост от
+          <span class="meta">Post by
             <a href="#">{{post.author.name}}</a>
-            - {{post.date}}</span>
+            on {{post.date}}</span>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
 
         {% if current_user.id == 1 %}
         <div class="clearfix">
-          <a class="btn btn-primary float-right" href="{{url_for('edit_post', post_id=post.id)}}">Редактировать пост</a>
+          <a class="btn btn-primary float-right" href="{{url_for('edit_post', post_id=post.id)}}">Edit Post</a>
         </div>
         {% endif %}
 
@@ -52,8 +52,6 @@
             {% endfor %}
           </ul>
         </div>
-
-
       </div>
     </div>
   </div>
