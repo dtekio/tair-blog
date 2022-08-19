@@ -6,7 +6,8 @@
 
 body {
   font-size: 20px;
-  color: #212529;
+  color: #343148FF;
+  background-color: #D7C49EFF;
   font-family: 'Lora', 'Times New Roman', serif;
 }
 
@@ -30,12 +31,12 @@ h6 {
 }
 
 a {
-  color: #212529;
+  color: #343148FF;
   transition: all 0.2s;
 }
 
 a:focus, a:hover {
-  color: #0085A1;
+  color: rgb(24, 23, 32);
 }
 
 blockquote {
